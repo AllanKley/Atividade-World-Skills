@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="titulo">{{automovel.modelo}}</div>
+    
+    <div class="select-box">
+        <div class="label">Cliente:</div>
+        <select name="clientes" id="clientes" class="clientes">
+            <ng-container *ngFor="let cliente of clientes">
+                <option value={{cliente.id}}>{{cliente.nome}}</option>
+            </ng-container>
+            
+        </select>
+    </div>
+
+    <div class="select-box">
+        <div class="label">Concessionaria:</div>
+        <select name="clientes" id="clientes" class="clientes">
+            <ng-container *ngFor="let concessionaria of concessionarias">
+                <option value={{concessionaria.id}}>{{concessionaria.nome}}</option>
+            </ng-container>
+            
+        </select>
+    </div>
+
+    <div class="botao">Confirmar</div>
+</div>

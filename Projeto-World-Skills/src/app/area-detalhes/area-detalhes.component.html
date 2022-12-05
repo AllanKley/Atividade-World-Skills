@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="titulo">Area {{area.id}}</div>
+    
+    <div class="automovel" *ngFor="let automovel of area.automoveis">
+        <div class="info">
+            <p>modelo: {{automovel.modelo}}</p>
+            <p>Preco: R$ {{automovel.preco}}</p>
+        </div>
+        <div class="botao">Vender</div>
+    </div>
+</div>

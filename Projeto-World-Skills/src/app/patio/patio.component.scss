@@ -1,0 +1,31 @@
+.container{
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content:flex-start;
+
+}
+
+.titulo{
+    padding-block: 20px;
+    font-size: 2em;
+}
+
+.area-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    width: 60vw;
+}
+
+.area{
+    display: grid;
+    flex: 1 0 20%; 
+    margin: 5px;
+    height: 80px;
+    place-items: center;
+    border-radius: 10px;
+    background-color: #0000FF;
+    cursor: pointer;
+}
