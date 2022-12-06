@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
+import axios from 'axios';
 
 export interface Automovel {
   modelo: string;
@@ -10,6 +12,7 @@ export interface Locacao {
   automoveis: Automovel[];
   id: number;
 }
+
 
 @Component({
   selector: 'app-area-detalhes',
@@ -27,13 +30,49 @@ export class AreaDetalhesComponent implements OnInit {
     {modelo:'modelo 6',preco:19,id:6}
   ];
   area: Locacao = {automoveis: this.automoveis, id:1};
+  areaId: number = 1;
+  locacoes: Locacao[] = [];
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
+    const routeParams = this.route.snapshot.paramMap;
  
+    this.areaId = Number(routeParams.get('areaId'));
+    this.CarregarArea(this.areaId);
 
+  }
+
+  CarregarArea(areaId:number) {
+    var config = {
+      method: 'get',
+      url: 'https://localhost:7206/locacao/buscar/' + areaId,
+    };
+    var instance = this;
+    axios(config)
+      .then(function (response) {
+        instance.locacoes = response.data;
+        console.log(instance.locacoes);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  CarregarAutomoveis(automovelId:number){
+    var config = {
+      method: 'get',
+      url: 'https://localhost:7206/automovel/buscar/' + automovelId,
+    };
+    var instance = this;
+    axios(config)
+      .then(function (response) {
+        
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
 }

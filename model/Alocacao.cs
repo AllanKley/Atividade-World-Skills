@@ -38,17 +38,10 @@ public partial class Alocacao
         }
     }
 
-    public static Object BuscarPorId(int id){
+    public static Alocacao[] BuscarPorId(int id){
         using (var context = new AtividadeEdjalmaContext())
         {
-            var alocacao = context.Alocacaos
-            .Join(context.Automoveis, a => a.Automovel, c => c.Id, (a,c) => new{
-                area = a.Area,
-                modelo = c.Modelo,
-                preco = c.PreO,
-                automovel_id = a.Id
-            })
-          ;
+            var alocacao = context.Alocacaos.Where(a => a.Area == id).ToArray();
 
             return alocacao;
         }

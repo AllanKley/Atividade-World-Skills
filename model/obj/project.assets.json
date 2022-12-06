@@ -3264,19 +3264,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Allan\\.nuget\\packages\\": {}
+    "C:\\Users\\Aluno\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Allan\\Desktop\\Atividade-World-Skills\\model\\model.csproj",
-      "projectName": "model",
-      "projectPath": "C:\\Users\\Allan\\Desktop\\Atividade-World-Skills\\model\\model.csproj",
-      "packagesPath": "C:\\Users\\Allan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Allan\\Desktop\\Atividade-World-Skills\\model\\obj\\",
+      "projectUniqueName": "C:\\Users\\Aluno\\Desktop\\Atividade-World-Skills\\Model\\Model.csproj",
+      "projectName": "Model",
+      "projectPath": "C:\\Users\\Aluno\\Desktop\\Atividade-World-Skills\\Model\\Model.csproj",
+      "packagesPath": "C:\\Users\\Aluno\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Aluno\\Desktop\\Atividade-World-Skills\\Model\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Allan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Aluno\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3328,7 +3333,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -4,7 +4,7 @@ import { AreaDetalhesComponent}  from  './area-detalhes/area-detalhes.component'
 import { VendaComponent } from './venda/venda.component';
 
 const routes: Routes = [
-  {path: 'detalhes', component: AreaDetalhesComponent},
+  {path: 'detalhes/:areaId', component: AreaDetalhesComponent},
   {path: 'venda', component: VendaComponent}
 ];
 
