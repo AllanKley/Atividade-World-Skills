@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
+import axios from 'axios';
 
 export interface Automovel {
   modelo: string;
@@ -32,17 +34,34 @@ export class VendaComponent implements OnInit {
 
   automovel: Automovel = {modelo:'modelo 6',concessionarias: this.concessionarias,id:6};
 
-  clientes: Cliente[] = [
-    {nome: 'cliente 1', id:1},
-    {nome: 'cliente 2', id:2},
-    {nome: 'cliente 3', id:3},
-    {nome: 'cliente 4', id:4},
-  ];
+  clientes: Cliente[] = [];
+  areaId: number = 1;
+  automovelId: number = 1;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    
+    const routeParams = this.route.snapshot.paramMap;
+    this.areaId = Number(routeParams.get('areaId'));
+    this.automovelId = Number(routeParams.get('automovelId'));
+
+    this.CarregarClientes();
   }
 
+  CarregarClientes(){
+    var config = {
+      method: 'get',
+      url: 'https://localhost:7206/cliente/buscarTodos',
+    };
+    var instance = this;
+    axios(config)
+      .then(function (response) {
+
+        instance.clientes = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+ 
 }

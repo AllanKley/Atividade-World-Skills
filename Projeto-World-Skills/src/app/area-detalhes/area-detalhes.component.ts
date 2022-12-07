@@ -4,15 +4,15 @@ import axios from 'axios';
 
 export interface Automovel {
   modelo: string;
-  preco: number;
+  preO: number;
   id: number;
 }
 
 export interface Locacao {
+  automovel:number
   automoveis: Automovel[];
   id: number;
 }
-
 
 @Component({
   selector: 'app-area-detalhes',
@@ -21,15 +21,8 @@ export interface Locacao {
 })
 export class AreaDetalhesComponent implements OnInit {
 
-  automoveis: Automovel[] = [
-    {modelo:'modelo 1',preco:10,id:1},
-    {modelo:'modelo 2',preco:15,id:2},
-    {modelo:'modelo 3',preco:12,id:3},
-    {modelo:'modelo 4',preco:11,id:4},
-    {modelo:'modelo 5',preco:14,id:5},
-    {modelo:'modelo 6',preco:19,id:6}
-  ];
-  area: Locacao = {automoveis: this.automoveis, id:1};
+  automoveis: Automovel[] = [];
+  area: Locacao = {automoveis: this.automoveis,automovel:1, id:1};
   areaId: number = 1;
   locacoes: Locacao[] = [];
 
@@ -37,29 +30,21 @@ export class AreaDetalhesComponent implements OnInit {
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
- 
     this.areaId = Number(routeParams.get('areaId'));
-    this.CarregarArea(this.areaId);
-
+    this.CarregarAutomoveis();
   }
 
-  CarregarArea(areaId:number) {
+  async CarregarArea() {
     var config = {
       method: 'get',
-      url: 'https://localhost:7206/locacao/buscar/' + areaId,
+      url: 'https://localhost:7206/locacao/buscar/' + this.areaId,
     };
     var instance = this;
-    axios(config)
-      .then(function (response) {
-        instance.locacoes = response.data;
-        console.log(instance.locacoes);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    var response = await axios(config);
+    instance.locacoes = response.data;
   }
 
-  CarregarAutomoveis(automovelId:number){
+  CarregarAutomovel(automovelId:number){
     var config = {
       method: 'get',
       url: 'https://localhost:7206/automovel/buscar/' + automovelId,
@@ -67,12 +52,17 @@ export class AreaDetalhesComponent implements OnInit {
     var instance = this;
     axios(config)
       .then(function (response) {
-        
-        console.log(response.data);
+        instance.automoveis.push(response.data); 
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
+  async CarregarAutomoveis(){
+    await this.CarregarArea();   
+    this.locacoes.forEach(alocacao => {
+      this.CarregarAutomovel(alocacao.automovel);
+    });  
+  }
 }

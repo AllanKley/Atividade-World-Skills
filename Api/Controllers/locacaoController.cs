@@ -34,7 +34,7 @@ public class locacaoController : ControllerBase
 
     [HttpGet]
     [Route("buscar/{id}")]
-    public Alocacao[] BuscarPorId(int id)
+    public Object[] BuscarPorId(int id)
     {
         var alocacao = Alocacao.BuscarPorId(id);
 
