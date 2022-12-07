@@ -9,8 +9,8 @@ export interface Automovel {
 }
 
 export interface Concessionaria {
-  nome: string;
-  id: number;
+  column1: string;
+  column2: number;
 }
 
 export interface Cliente{
@@ -25,18 +25,18 @@ export interface Cliente{
 })
 export class VendaComponent implements OnInit {
   
-  concessionarias: Concessionaria[] = [
-    {nome: 'concessionaria 1', id:1},
-    {nome: 'concessionaria 2', id:2},
-    {nome: 'concessionaria 3', id:3},
-    {nome: 'concessionaria 4', id:4},
-  ];
+  concessionarias: Concessionaria[] = [];
 
-  automovel: Automovel = {modelo:'modelo 6',concessionarias: this.concessionarias,id:6};
+  concessionariasId: number[] = [];
+
+  automovel: Automovel = {modelo:'',concessionarias: this.concessionarias,id:6};
 
   clientes: Cliente[] = [];
   areaId: number = 1;
   automovelId: number = 1;
+
+
+  concessionariaSelecionadaId: number = 1;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -44,8 +44,9 @@ export class VendaComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     this.areaId = Number(routeParams.get('areaId'));
     this.automovelId = Number(routeParams.get('automovelId'));
-
+    this.CarregarAutomovel(this.automovelId);
     this.CarregarClientes();
+    this.CarregarConcessionariasId();
   }
 
   CarregarClientes(){
@@ -63,5 +64,81 @@ export class VendaComponent implements OnInit {
         console.log(error);
       });
   }
+
+  CarregarConcessionariasId(){
+    var config = {
+      method: 'get',
+      url: 'https://localhost:7206/locacao/concessionarias/' + this.areaId + '/' + this.automovelId,
+    };
+    var instance = this;
+    axios(config)
+      .then(function (response) {
+
+        instance.concessionariasId = response.data;
+
+        
+        instance.concessionariasId.forEach(concessionaria => {
+          type ObjectKey = keyof typeof concessionaria;
+          const key = 'id' as ObjectKey;
+          
+          instance.CarregarConcessionaria(Number(concessionaria[key]));
+        });
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  CarregarConcessionaria(concessionariaId: number){
+    var config = {
+      method: 'get',
+      url: 'https://localhost:7206/concessionaria/buscar/' + concessionariaId ,
+    };
+    var instance = this;
+    axios(config)
+      .then(function (response) {
+
+        instance.concessionarias.push(response.data);
+        console.log(instance.concessionarias);
+        
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  CarregarAutomovel(automovelId:number){
+    var config = {
+      method: 'get',
+      url: 'https://localhost:7206/automovel/buscar/' + automovelId,
+    };
+    var instance = this;
+    axios(config)
+      .then(function (response) {
+        instance.automovel = response.data; 
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  Vender(){
+
+    var concessionariaid = document.getElementById('concessionaria') as HTMLInputElement;
+    var config = {
+      method: 'put',
+      url: 'https://localhost:7206/locacao/vender/' + this.areaId + '/' + this.automovelId + "/" + concessionariaid.value,
+    };
+    var instance = this;
+    axios(config)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
  
 }

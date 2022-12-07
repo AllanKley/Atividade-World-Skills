@@ -40,4 +40,22 @@ public class locacaoController : ControllerBase
 
         return alocacao;
     }
+
+    [HttpGet]
+    [Route("concessionarias/{areaId}/{automovelId}")]
+    public object[] BuscarConcessionarias(int areaId, int automovelId)
+    {
+        object[] concessionarias = Alocacao.BuscarConcessionarias(areaId, automovelId);
+
+        return concessionarias;
+    }
+
+    [HttpPut]
+    [Route("vender/{areaId}/{automovelId}/{concessionariaId}")]
+    public string Vender(int areaId, int automovelId, int concessionariaId)
+    {
+        Alocacao.Vender(areaId, automovelId, concessionariaId);
+
+        return "sucesso";
+    }
 }

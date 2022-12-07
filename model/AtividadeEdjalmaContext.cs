@@ -25,7 +25,7 @@ public partial class AtividadeEdjalmaContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
-        => optionsBuilder.UseSqlServer("Server=SNCCH01LABF131\\TEW_SQLEXPRESS;Database=Atividade_Edjalma;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=JVLPC0553;Database=Atividade_Edjalma;Trusted_Connection=True;TrustServerCertificate=True;");
 
 
 

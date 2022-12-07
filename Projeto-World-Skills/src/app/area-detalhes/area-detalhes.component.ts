@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import axios from 'axios';
 
 export interface Automovel {
@@ -26,7 +26,7 @@ export class AreaDetalhesComponent implements OnInit {
   areaId: number = 1;
   locacoes: Locacao[] = [];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,private router: Router) { }
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
@@ -64,5 +64,12 @@ export class AreaDetalhesComponent implements OnInit {
     this.locacoes.forEach(alocacao => {
       this.CarregarAutomovel(alocacao.automovel);
     });  
+  }
+
+  SelecionarAutomovel(automovelId:number){
+    let caminho = "venda/" + this.areaId + "/" + automovelId
+    console.log(caminho);
+    
+    this.router.navigate([caminho]);
   }
 }

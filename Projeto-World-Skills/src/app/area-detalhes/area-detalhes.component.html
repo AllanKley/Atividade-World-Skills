@@ -6,6 +6,6 @@
             <p>modelo: {{automovel.modelo}}</p>
             <p>Preco: R$ {{automovel.preO}}</p>
         </div>
-        <div class="botao">Vender</div>
+        <div class="botao" (click)="SelecionarAutomovel(automovel.id)">Vender</div>
     </div>
 </div>

@@ -49,11 +49,35 @@ public partial class Alocacao
             })
             .ToArray();
 
+            return alocacao;
+        }
+    }
 
+    public static object[] BuscarConcessionarias(int areaId, int automovelId){
+        using (var context = new AtividadeEdjalmaContext())
+        {
+            var alocacao = context.Alocacaos
+            .Where(a => a.Area == areaId && a.Automovel == automovelId)
+            .GroupBy(a => a.ConcessionRia)
+            .Select(a => new {
+                id = a.Key
+            })
+            .ToArray();
 
-
+            
 
             return alocacao;
+        }
+    }
+
+    public static void Vender(int areaId, int automovelId, int concessionariaId){
+        using (var context = new AtividadeEdjalmaContext())
+        {
+            Alocacao alocacao = context.Alocacaos.FirstOrDefault(a => a.Area == areaId && a.Automovel == automovelId && a.ConcessionRia == concessionariaId);
+
+            alocacao.Quantidade -= 1;
+
+            context.SaveChanges();
         }
     }
 }
